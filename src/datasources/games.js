@@ -3,7 +3,7 @@
 import { uuid } from 'uuidv4'
 import { DynamoDB, ScanCommand } from '@aws-sdk/client-dynamodb'
 import { DynamoDBDocumentClient, GetCommand, ScanCommand, PutCommand, UpdateCommand, DeleteCommand } from "@aws-sdk/lib-dynamodb"
-const { TableName } = process.env
+const { TABLE_NAME: TableName } = process.env
 
 const client = new DynamoDB({})
 const ddbClient = DynamoDBDocumentClient.from(client)
@@ -45,8 +45,8 @@ const getGame = async (id) => {
   return res
 }
 
-const updateGame = async (gameData) => {
-  const { id, title, year, genre } = gameData
+const updateGame = async (id, gameData) => {
+  const { title, year, genre } = gameData
 
   let updateExpression = 'SET '
   let expressionAttributeValues = {}
