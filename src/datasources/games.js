@@ -31,7 +31,7 @@ const getAllGames = async () => {
     ProjectionExpression: "title, year, genre"
   }))
 
-  return res
+  return res.Items
 }
 
 const getGame = async (id) => {
@@ -42,7 +42,7 @@ const getGame = async (id) => {
     }
   }))
 
-  return res
+  return res.Item
 }
 
 const updateGame = async (id, gameData) => {
@@ -74,7 +74,7 @@ const updateGame = async (id, gameData) => {
     ReturnValues: 'ALL_NEW'
   }))
 
-  return res
+  return mapItem(res.Attributes)
 }
 
 const deleteGame = async (id) => {
@@ -84,6 +84,24 @@ const deleteGame = async (id) => {
       id
     }
   }))
+
+  return {}
+}
+
+/**
+ * A function to map the attributes from the updateItem dynamodb call
+ *
+ * @param {object} attributes - dynamodb attributes
+ */
+const mapItem = (attributes) => {
+  return attributes
+    ? {
+        id: attributes.id ?? null,
+        title: attributes.title ?? null,
+        year: attributes.year ?? null,
+        genre: attributes.genre ?? null
+      }
+    : null
 }
 
 export {

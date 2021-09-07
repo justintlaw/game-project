@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 import 'source-map-support/register';
 import * as cdk from '@aws-cdk/core';
-import { GameProjectStack } from '../lib/game-project-stack';
+import { GameProjectPipelineStack } from '../lib/game-project-pipeline';
 
 const app = new cdk.App();
-new GameProjectStack(app, 'GameProjectStack', {
+new GameProjectPipelineStack(app, 'GameProjectStack', {
   /* If you don't specify 'env', this stack will be environment-agnostic.
    * Account/Region-dependent features and context lookups will not work,
    * but a single synthesized template can be deployed anywhere. */
