@@ -9,7 +9,11 @@ export class GameProjectPipelineStack extends cdk.Stack {
     const gameProjectPipeline = new CodePipeline(this, 'GameProjectPipeline', {
       pipelineName: 'GameProjectPipeline',
       synth: new ShellStep('Synth', {
-        input: CodePipelineSource.gitHub('justintlaw/game-project', 'master'),
+        // input: CodePipelineSource.gitHub('justintlaw/game-project', 'master'),
+        // temporarily using below code until the issues with authentication the above code has can be fixed
+        input: CodePipelineSource.connection('justintlaw/game-project', 'master', {
+          connectionArn: 'arn:aws:codestar-connections:us-east-1:163961535528:connection/1a560871-ae21-4fd4-a3dd-bbb92aa287f0'
+        }),
         commands: ['npm ci', 'npm run build', 'npx cdk synth'] // ADD MORE HERE
       })
     })
@@ -28,6 +32,5 @@ export class GameProjectPipelineStack extends cdk.Stack {
       }
     }))
     prodStage.addPost(new ManualApprovalStep('approval'))
-    
   }
 }
