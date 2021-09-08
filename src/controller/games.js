@@ -61,7 +61,7 @@ const updateGame = async (id, { title, yearReleased, genre }) => {
   let game
 
   try {
-    game = await datasources.games.updateGame({ title, yearReleased, genre })
+    game = await datasources.games.updateGame(id, { title, yearReleased, genre })
   } catch (err) {
     console.error(`Failed to update game with id ${id}.`, err)
     return response(500, { status: 'error', message: `Failed to update game with id ${id}.` })
