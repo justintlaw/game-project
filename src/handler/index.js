@@ -1,6 +1,6 @@
 'use strict'
 
-import { createGame, getAllGames, getGame, updateGame, deleteGame } from '../controller/games'
+const { createGame, getAllGames, getGame, updateGame, deleteGame } = require('../controller/games')
 
 const rootPath = '/games'
 

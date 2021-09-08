@@ -1,6 +1,6 @@
 'use strict'
 
-import * as datasources from '../datasources'
+const datasources = require('../datasources')
 
 const createGame = async (gameData) => {
   let game
@@ -93,7 +93,7 @@ const response = (statusCode, body) => {
   }
 }
 
-export {
+module.exports = {
   createGame,
   getAllGames,
   getGame,

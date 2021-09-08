@@ -1,8 +1,8 @@
 'use strict'
 
-import { uuid } from 'uuidv4'
-import { DynamoDB, ScanCommand } from '@aws-sdk/client-dynamodb'
-import { DynamoDBDocumentClient, GetCommand, ScanCommand, PutCommand, UpdateCommand, DeleteCommand } from "@aws-sdk/lib-dynamodb"
+const { uuid } = require('uuidv4')
+const { DynamoDB, ScanCommand } = require('@aws-sdk/client-dynamodb')
+const { DynamoDBDocumentClient, GetCommand, ScanCommand, PutCommand, UpdateCommand, DeleteCommand } = require('@aws-sdk/lib-dynamodb')
 const { TABLE_NAME: TableName } = process.env
 
 const client = new DynamoDB({})
@@ -104,7 +104,7 @@ const mapItem = (attributes) => {
     : null
 }
 
-export {
+module.exports = {
   createGame,
   getAllGames,
   getGame,

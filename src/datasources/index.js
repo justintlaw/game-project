@@ -1,7 +1,7 @@
 'use strict'
 
-import * as games from './games'
+const games = require('./games')
 
-export {
+module.exports = {
   games
 }
