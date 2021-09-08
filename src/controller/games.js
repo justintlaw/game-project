@@ -87,7 +87,7 @@ const response = (statusCode, body) => {
   return {
     statusCode: statusCode,
     body: body,
-    headers = {
+    headers: {
       'Content-Type': 'application/json'
     }
   }
