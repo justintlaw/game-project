@@ -30,7 +30,10 @@ export class GameProjectStack extends cdk.Stack {
 
     // Create the API Gateway Lambda integration
     new apigateway.LambdaRestApi(this, 'GameAPI', {
-      handler: endpointsLambda
+      handler: endpointsLambda,
+      deployOptions: {
+        stageName: 'v1'
+      }
     })
   }
 }
