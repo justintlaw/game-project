@@ -5,7 +5,7 @@ const { createGame, getAllGames, getGame, updateGame, deleteGame } = require('..
 const rootPath = '/games'
 
 exports.handler = async function(event, context) {
-  console.log('\n\nevent', JSON.stringify(event, null, 2))
+  console.log('event', JSON.stringify(event, null, 2))
 
   const { path, queryStringParameters, httpMethod, body } = event
   const { id } = queryStringParameters ?? {}
@@ -42,7 +42,7 @@ exports.handler = async function(event, context) {
   else if(path === `${rootPath}` && id && httpMethod === 'DELETE') {
     res = await deleteGame(id)
   }
-  // return a default error if the controller fails to
+  // return a default error if the controller fails
   else {
     return {
       statusCode: 500,

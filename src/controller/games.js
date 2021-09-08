@@ -10,7 +10,7 @@ const createGame = async (gameData) => {
   }
   
   if (!yearReleased) {
-    return response(400, { status: 'error', message: 'Required field "year" is missing.' })
+    return response(400, { status: 'error', message: 'Required field "yearReleased" is missing.' })
   }
 
   try {
