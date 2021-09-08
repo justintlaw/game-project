@@ -3,13 +3,14 @@
 const datasources = require('../datasources')
 
 const createGame = async (gameData) => {
-  const { title, year } = gameData
+  console.log(gameData)
+  const { title, yearReleased } = gameData
 
   if (!title) {
     return response(400, { status: 'error', message: 'Required field "title" is missing.' })
   }
   
-  if (!year) {
+  if (!yearReleased) {
     return response(400, { status: 'error', message: 'Required field "year" is missing.' })
   }
 

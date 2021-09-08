@@ -14,7 +14,7 @@ exports.handler = async function(event, context) {
   let res
 
   // Create game
-  if (path === `${rootPath}` && httpMethod === 'POST') {
+  if (path === `${rootPath}` && !id && httpMethod === 'POST') {
     res = await createGame(body)
   }
   // Get a game by id
@@ -22,7 +22,7 @@ exports.handler = async function(event, context) {
     res = await getGame(id)
   }
   // Get all games
-  else if (path === `${rootPath}` && httpMethod === 'GET') {
+  else if (path === `${rootPath}` && !id && httpMethod === 'GET') {
     res = await getAllGames()
   }
   // Update a game by id
