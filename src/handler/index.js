@@ -7,6 +7,8 @@ const rootPath = '/games'
 exports.handler = async function(event, context) {
   // select path
   const { path, pathParameters, httpMethod, body } = event
+  console.log('path', path)
+  console.log('\n\nevent', JSON.stringify(event, null, 2))
   const { id } = pathParameters
 
   let res
