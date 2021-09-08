@@ -1,7 +1,7 @@
 'use strict'
 
 const { uuid } = require('uuidv4')
-const { DynamoDB, ScanCommand } = require('@aws-sdk/client-dynamodb')
+const { DynamoDB } = require('@aws-sdk/client-dynamodb')
 const { DynamoDBDocumentClient, GetCommand, ScanCommand, PutCommand, UpdateCommand, DeleteCommand } = require('@aws-sdk/lib-dynamodb')
 const { TABLE_NAME: TableName } = process.env
 
