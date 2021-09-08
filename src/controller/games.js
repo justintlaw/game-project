@@ -5,6 +5,7 @@ const datasources = require('../datasources')
 const createGame = async (gameData) => {
   console.log(gameData)
   const { title, yearReleased } = gameData
+  console.log('title', title)
 
   if (!title) {
     return response(400, { status: 'error', message: 'Required field "title" is missing.' })
@@ -79,7 +80,7 @@ const deleteGame = async (id) => {
     return response (500, { status: 'error', data: null, message: `Failed to delete game with id ${id}.` })
   }
 
-  return response(204, { status: 'success', data: {}, message: `Deleted game with id ${id}.` })
+  return response(204, { status: 'success', data: null, message: `Deleted game with id ${id}.` })
 }
 
 /**
