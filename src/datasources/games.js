@@ -46,9 +46,6 @@ const getGame = async (id) => {
 }
 
 const updateGame = async (id, { title, yearReleased, genre }) => {
-  console.log('title', title)
-  console.log('year', yearReleased)
-  console.log('genre', genre)
   let updateExpression = 'SET '
   let expressionAttributeValues = {}
 

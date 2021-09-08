@@ -3,12 +3,7 @@
 const datasources = require('../datasources')
 
 const createGame = async (gameData) => {
-  console.log(gameData)
-  // const { title, yearReleased } = gameData
-  const title = gameData.title
-  const yearReleased = gameData.yearReleased
-  const genre = gameData.genre
-  console.log('title', title)
+  const { title, yearReleased, genre } = gameData
 
   if (!title) {
     return response(400, { status: 'error', message: 'Required field "title" is missing.' })
@@ -68,7 +63,7 @@ const updateGame = async (id, { title, yearReleased, genre }) => {
   try {
     game = await datasources.games.updateGame({ title, yearReleased, genre })
   } catch (err) {
-    console.error(`Failed to update game with id ${id}.`)
+    console.error(`Failed to update game with id ${id}.`, err)
     return response(500, { status: 'error', message: `Failed to update game with id ${id}.` })
   }
 

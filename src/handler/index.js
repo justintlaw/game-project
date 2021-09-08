@@ -5,9 +5,9 @@ const { createGame, getAllGames, getGame, updateGame, deleteGame } = require('..
 const rootPath = '/games'
 
 exports.handler = async function(event, context) {
-  const { path, queryStringParameters, httpMethod, body } = event
-  console.log('path', path)
   console.log('\n\nevent', JSON.stringify(event, null, 2))
+
+  const { path, queryStringParameters, httpMethod, body } = event
   const { id } = queryStringParameters ?? {}
 
   // convert the body to JSON
@@ -16,7 +16,7 @@ exports.handler = async function(event, context) {
     try {
       requestBody = JSON.parse(body)
     } catch {
-      requestBody = null
+      requestBody = body
     }
   }
 
