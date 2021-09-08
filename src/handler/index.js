@@ -9,7 +9,7 @@ exports.handler = async function(event, context) {
   const { path, queryStringParameters, httpMethod, body } = event
   console.log('path', path)
   console.log('\n\nevent', JSON.stringify(event, null, 2))
-  const { id } = queryStringParameters
+  const { id } = queryStringParameters ?? {}
 
   let res
 

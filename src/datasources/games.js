@@ -45,7 +45,7 @@ const getGame = async (id) => {
   return res.Item
 }
 
-const updateGame = async (id, {title, yearReleased, genre }) => {
+const updateGame = async (id, { title, yearReleased, genre }) => {
   let updateExpression = 'SET '
   let expressionAttributeValues = {}
 
