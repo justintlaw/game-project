@@ -10,11 +10,21 @@ exports.handler = async function(event, context) {
   console.log('\n\nevent', JSON.stringify(event, null, 2))
   const { id } = queryStringParameters ?? {}
 
+  // convert the body to JSON
+  let requestBody
+  if (body) {
+    try {
+      requestBody = JSON.parse(body)
+    } catch {
+      requestBody = null
+    }
+  }
+
   let res
 
   // Create game
   if (path === `${rootPath}` && !id && httpMethod === 'POST') {
-    res = await createGame(body)
+    res = await createGame(requestBody)
   }
   // Get a game by id
   else if (path === `${rootPath}` && id && httpMethod === 'GET') {
@@ -26,7 +36,7 @@ exports.handler = async function(event, context) {
   }
   // Update a game by id
   else if (path === `${rootPath}` && id && httpMethod === 'POST') {
-    res = await updateGame(id, body)
+    res = await updateGame(id, requestBody)
   }
   // Delete a game by id
   else if(path === `${rootPath}` && id && httpMethod === 'DELETE') {
