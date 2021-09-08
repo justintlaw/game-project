@@ -1,6 +1,6 @@
 'use strict'
 
-const { uuid } = require('uuidv4')
+const { v4: uuidv4 } = require('uuid')
 const { DynamoDB } = require('@aws-sdk/client-dynamodb')
 const { DynamoDBDocumentClient, GetCommand, ScanCommand, PutCommand, UpdateCommand, DeleteCommand } = require('@aws-sdk/lib-dynamodb')
 const { TABLE_NAME: TableName } = process.env
@@ -12,23 +12,24 @@ const ddbClient = DynamoDBDocumentClient.from(client)
  * The basic CRUD functions to work with the game list
  */
 
-const createGame = async (gameData) => {
-  const { title, year, genre } = gameData
-
+const createGame = async ({ title, yearReleased, genre }) => {
   await ddbClient.send(new PutCommand({
     TableName,
     Item: {
-      id: uuid(),
+      id: uuidv4(),
       title: title,
-      year: year,
+      year_released: yearReleased,
       genre: genre ?? ""
     }
   }))
+
+  return {}
 }
 
 const getAllGames = async () => {
   const res = await ddbClient.send(new ScanCommand({
-    ProjectionExpression: "title, year, genre"
+    TableName,
+    ProjectionExpression: "id, title, year_released, genre"
   }))
 
   return res.Items
@@ -41,13 +42,10 @@ const getGame = async (id) => {
       id
     }
   }))
-
   return res.Item
 }
 
-const updateGame = async (id, gameData) => {
-  const { title, year, genre } = gameData
-
+const updateGame = async (id, {title, yearReleased, genre }) => {
   let updateExpression = 'SET '
   let expressionAttributeValues = {}
 
@@ -56,9 +54,9 @@ const updateGame = async (id, gameData) => {
     expressionAttributeValues[':title'] = title
   }
 
-  if (year) {
-    updateExpression += ',year=:year'
-    expressionAttributeValues[':year'] = year
+  if (yearReleased) {
+    updateExpression += ',year_released=:year_released'
+    expressionAttributeValues[':year_released'] = yearReleased
   }
 
   if (genre) {
@@ -74,7 +72,7 @@ const updateGame = async (id, gameData) => {
     ReturnValues: 'ALL_NEW'
   }))
 
-  return mapItem(res.Attributes)
+  return mapItem(res.Attributes, id)
 }
 
 const deleteGame = async (id) => {
@@ -91,15 +89,16 @@ const deleteGame = async (id) => {
 /**
  * A function to map the attributes from the updateItem dynamodb call
  *
- * @param {object} attributes - dynamodb attributes
+ * @param {object} item - dynamodb item
+ * @param {String} id - uuid of item
  */
-const mapItem = (attributes) => {
-  return attributes
+const mapItem = (item, id = null) => {
+  return item
     ? {
-        id: attributes.id ?? null,
-        title: attributes.title ?? null,
-        year: attributes.year ?? null,
-        genre: attributes.genre ?? null
+        id: id ?? null,
+        title: item.title ?? null,
+        yearReleased: item.year_released ?? null,
+        genre: item.genre ?? null
       }
     : null
 }

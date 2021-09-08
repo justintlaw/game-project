@@ -16,13 +16,13 @@ const createGame = async (gameData) => {
   }
 
   try {
-    game = await datasources.games.createGame(gameData)
+    await datasources.games.createGame(gameData)
   } catch (err) {
     console.error('Failed to create item:', err)
     return response(500, { status: 'error', message: 'Failed to create item.' })
   }
 
-  return response(201, { status: 'success', data: { ...game } })
+  return response(201, { status: 'success', data: null })
 }
 
 const getAllGames = async () => {
@@ -35,7 +35,7 @@ const getAllGames = async () => {
     return response(500, { status: 'error', message: 'Failed to get games.' })
   }
 
-  if (!games) {
+  if (!games || games.length < 1) {
     return response(404, { status: 'error', message: 'No games were found.' })
   }
 
