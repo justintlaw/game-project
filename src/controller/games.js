@@ -8,11 +8,11 @@ const createGame = async (gameData) => {
   const { title, year } = gameDate
 
   if (!title) {
-    return response(400, { status: 'error', message: 'Title is missing from input.' })
+    return response(400, { status: 'error', message: 'Required field "title" is missing.' })
   }
   
   if (!year) {
-    return response(400, { status: 'error', message: 'Year is missing from input.' })
+    return response(400, { status: 'error', message: 'Required field "year" is missing.' })
   }
 
   try {
