@@ -6,10 +6,10 @@ const rootPath = '/games'
 
 exports.handler = async function(event, context) {
   // select path
-  const { path, pathParameters, httpMethod, body } = event
+  const { path, queryStringParameters, httpMethod, body } = event
   console.log('path', path)
   console.log('\n\nevent', JSON.stringify(event, null, 2))
-  const { id } = pathParameters
+  const { id } = queryStringParameters
 
   let res
 
@@ -17,13 +17,13 @@ exports.handler = async function(event, context) {
   if (path === `${rootPath}` && httpMethod === 'POST') {
     res = await createGame(body)
   }
-  // Get all games
-  else if (path === `${rootPath}` && httpMethod === 'GET') {
-    res = await getAllGames()
-  }
   // Get a game by id
   else if (path === `${rootPath}` && id && httpMethod === 'GET') {
     res = await getGame(id)
+  }
+  // Get all games
+  else if (path === `${rootPath}` && httpMethod === 'GET') {
+    res = await getAllGames()
   }
   // Update a game by id
   else if (path === `${rootPath}` && id && httpMethod === 'POST') {
@@ -39,7 +39,7 @@ exports.handler = async function(event, context) {
       statusCode: 500,
       body: JSON.stringify({
         status: 'error',
-        message: 'An unhandled error has unoccurred.'
+        message: 'An unhandled error has occurred.'
       })
     }
   }
