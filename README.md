@@ -13,9 +13,9 @@ The `cdk.json` file tells the CDK Toolkit how to execute your app.
  * `cdk diff`        compare deployed stack with current state
  * `cdk synth`       emits the synthesized CloudFormation template
 
+ ### First time setup steps:
 
-## Setup scripts
-
+ ## Step 1:
 * use this script to create the connection to github (the repo and branch is specified in 'lib/game-project-pipeline.ts')
 * copy the output arn and put this in the connection method
 
@@ -23,5 +23,13 @@ aws codestar-connections create-connection \
     --provider-type GitHub \
     --connection-name game-project
 
-* script to deploy
+## Step 2:
+* run the following
+* make sure the profile is configured in the credentials file
+
 cdk deploy --profile admin
+
+## Step 3:
+* connect github
+
+Go to the CodePipeline console and connect the repository manually (only required during this setup)
