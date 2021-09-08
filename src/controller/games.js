@@ -3,8 +3,6 @@
 const datasources = require('../datasources')
 
 const createGame = async (gameData) => {
-  let game
-
   const { title, year } = gameDate
 
   if (!title) {
@@ -39,7 +37,7 @@ const getAllGames = async () => {
     return response(404, { status: 'error', message: 'No games were found.' })
   }
 
-  return response(200, { status: 'success', data: { ...games } })
+  return response(200, { status: 'success', data: [...games] })
 }
 
 const getGame = async (id) => {
@@ -83,6 +81,13 @@ const deleteGame = async () => {
   return response(204, { status: 'success', data: {}, message: `Deleted game with id ${id}.` })
 }
 
+/**
+ * A function to generate a response for the Lambda API Gateway integration 
+ *
+ * @param {number} statusCode - the code returned by the api
+ * @param {object} body - the data returned, if any
+ * @returns 
+ */
 const response = (statusCode, body) => {
   return {
     statusCode: statusCode,
