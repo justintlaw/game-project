@@ -86,7 +86,7 @@ const deleteGame = async () => {
 const response = (statusCode, body) => {
   return {
     statusCode: statusCode,
-    body: body,
+    body: JSON.stringify(body),
     headers: {
       'Content-Type': 'application/json'
     }
