@@ -14,24 +14,34 @@ exports.handler = async function(event, context) {
   let res
 
   // Create game
-  if (path === `${rootPath}/` && httpMethod === 'POST') {
+  if (path === `${rootPath}` && httpMethod === 'POST') {
     res = await createGame(body)
   }
   // Get all games
-  else if (path === `${rootPath}/` && httpMethod === 'GET') {
+  else if (path === `${rootPath}` && httpMethod === 'GET') {
     res = await getAllGames()
   }
   // Get a game by id
-  else if (path === `${rootPath}/` && id && httpMethod === 'GET') {
+  else if (path === `${rootPath}` && id && httpMethod === 'GET') {
     res = await getGame(id)
   }
   // Update a game by id
-  else if (path === `${rootPath}/` && id && httpMethod === 'POST') {
+  else if (path === `${rootPath}` && id && httpMethod === 'POST') {
     res = await updateGame(id, body)
   }
   // Delete a game by id
-  else if(path === `${rootPath}/` && id && httpMethod === 'DELETE') {
+  else if(path === `${rootPath}` && id && httpMethod === 'DELETE') {
     res = await deleteGame(id)
+  }
+  // return a default error if the controller fails to
+  else {
+    return {
+      statusCode: 500,
+      body: JSON.stringify({
+        status: 'error',
+        message: 'An unhandled error has unoccurred.'
+      })
+    }
   }
 
   return res
