@@ -14,7 +14,8 @@ export class GameProjectPipelineStack extends cdk.Stack {
         input: CodePipelineSource.connection('justintlaw/game-project', 'master', {
           connectionArn: 'arn:aws:codestar-connections:us-east-1:163961535528:connection/1a560871-ae21-4fd4-a3dd-bbb92aa287f0'
         }),
-        commands: ['npm ci', 'npm run build', 'npx cdk synth'] // ADD MORE HERE
+        installCommands: ['cd src && npm install'],
+        commands: ['npm ci', 'npm run build', 'npx cdk synth']
       })
     })
 
@@ -31,6 +32,6 @@ export class GameProjectPipelineStack extends cdk.Stack {
         region: process.env.CDK_DEFAULT_REGION
       }
     }))
-    prodStage.addPost(new ManualApprovalStep('approval'))
+    prodStage.addPre(new ManualApprovalStep('approval'))
   }
 }

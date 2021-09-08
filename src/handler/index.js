@@ -1,6 +1,6 @@
 'use strict'
 
-import { createGame, getAllGames, getGame, updateGame, deleteGame } from '../datasources/games'
+import { createGame, getAllGames, getGame, updateGame, deleteGame } from '../controller/games'
 
 const rootPath = '/games'
 
@@ -25,7 +25,7 @@ exports.handler = async function(event, context) {
   }
   // Update a game by id
   else if (path === `${rootPath}/` && id && httpMethod === 'POST') {
-    res = await updateGame(id)
+    res = await updateGame(id, body)
   }
   // Delete a game by id
   else if(path === `${rootPath}/` && id && httpMethod === 'DELETE') {

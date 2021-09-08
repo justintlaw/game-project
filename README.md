@@ -32,4 +32,4 @@ cdk deploy --profile admin
 ## Step 3:
 * connect github
 
-Go to the CodePipeline console and connect the repository manually (only required during this setup)
+Go to the CodePipeline console and connect the repository manually (only required once while setting up)
