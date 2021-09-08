@@ -4,7 +4,10 @@ const datasources = require('../datasources')
 
 const createGame = async (gameData) => {
   console.log(gameData)
-  const { title, yearReleased } = gameData
+  // const { title, yearReleased } = gameData
+  const title = gameData.title
+  const yearReleased = gameData.yearReleased
+  const genre = gameData.genre
   console.log('title', title)
 
   if (!title) {
@@ -16,7 +19,7 @@ const createGame = async (gameData) => {
   }
 
   try {
-    await datasources.games.createGame(gameData)
+    await datasources.games.createGame({ title, yearReleased, genre })
   } catch (err) {
     console.error('Failed to create item:', err)
     return response(500, { status: 'error', message: 'Failed to create item.' })
@@ -59,11 +62,11 @@ const getGame = async (id) => {
   return response(200, { status: 'success', data: { ...game } })
 }
 
-const updateGame = async (id, gameData) => {
+const updateGame = async (id, { title, yearReleased, genre }) => {
   let game
 
   try {
-    game = await datasources.games.updateGame(gameData)
+    game = await datasources.games.updateGame({ title, yearReleased, genre })
   } catch (err) {
     console.error(`Failed to update game with id ${id}.`)
     return response(500, { status: 'error', message: `Failed to update game with id ${id}.` })

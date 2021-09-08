@@ -5,7 +5,6 @@ const { createGame, getAllGames, getGame, updateGame, deleteGame } = require('..
 const rootPath = '/games'
 
 exports.handler = async function(event, context) {
-  // select path
   const { path, queryStringParameters, httpMethod, body } = event
   console.log('path', path)
   console.log('\n\nevent', JSON.stringify(event, null, 2))
